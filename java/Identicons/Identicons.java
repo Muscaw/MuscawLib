@@ -8,18 +8,16 @@ import java.io.IOException;
 
 /**
  * Created by muscaw on 19/11/16.
+ * Initial source: http://www.davidhampgonsalves.com/Identicons
  */
 public class Identicons {
-    public static void main(String[] args){
-        String username = "Kevin G.";
-
-
-        //Has to be a multiple of 5
-        int image_width = 100, image_height = 100;
-
+    /*
+    * image_width and image_height have to be a multiple of 5.
+    */
+    public static BufferedImage generateIdenticons(String text, int image_width, int image_height){
         int width = 5, height = 5;
 
-        byte[] hash = username.getBytes();
+        byte[] hash = text.getBytes();
 
         BufferedImage identicon = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
         WritableRaster raster = identicon.getRaster();
@@ -49,12 +47,7 @@ public class Identicons {
         AffineTransformOp op = new AffineTransformOp(at, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         finalImage = op.filter(identicon, finalImage);
 
-        try {
-            ImageIO.write(finalImage, "png", new File("image.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+	return finalImage;
     }
 }
 
